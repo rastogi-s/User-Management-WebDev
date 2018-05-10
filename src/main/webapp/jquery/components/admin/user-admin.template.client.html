@@ -1,97 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>User Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Admin</title>
 
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
 
-<!-- Lib for fonts for this template -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-<!-- Custom CSS for this template -->
-<link href="user-admin.style.client.css" rel="stylesheet" />
+    <!-- Lib for fonts for this template -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+          integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+          crossorigin="anonymous">
+
+    <!-- Custom CSS for this template -->
+    <link rel="stylesheet" href="user-admin.style.client.css"/>
 
 </head>
 <body>
-	<header class="">
-		<div class="container">
-			<h1>User Admin</h1>
-		</div>
-	</header>
-	<section class="content">
-		<div class="container">
-			<table class="wbdev-table">
-				<thead>
-					<tr class="table-header">
-						<th>Username</th>
-						<th>Password</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Role</th>
-						<th>&nbsp;</th>
-					</tr>
-					<tr class="wbdev-form">
-						<td><input id="usernameFld" class="form-ctrl"
-							placeholder="Username"></td>
-						<td><input id="passwordFld" class="form-ctrl"
-							placeholder="Password"></td>
-						<td><input id="firstNameFld" class="form-ctrl"
-							placeholder="First Name"></td>
-						<td><input id="lastNameFld" class="form-ctrl"
-							placeholder="Last Name"></td>
-						<td><select id="roleFld" class="form-ctrl">
-								<option value="FACULTY">Faculty</option>
-								<option value="STUDENT">Student</option>
-						</select></td>
-						<td><span class="float-right"> <i
-								class="fa-2x fa fa-check wbdev-update"></i>
+<header class="">
+    <div class="container">
+        <h1>User Admin</h1>
+    </div>
+</header>
+<section class="content">
+    <div class="container">
+        <table class="table table-hover table-active table-responsive wbdev-table">
+
+            <thead>
+            <tr class="table-header thead-dark">
+                <th>Username</th>
+                <th>Password</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr class="wbdev-form">
+                <td><input id="usernameFld" class="form-control"
+                           placeholder="Username"></td>
+                <td><input id="passwordFld" class="form-control"
+                           placeholder="Password"></td>
+                <td><input id="firstNameFld" class="form-control"
+                           placeholder="First Name"></td>
+                <td><input id="lastNameFld" class="form-control"
+                           placeholder="Last Name"></td>
+                <td><select id="roleFld" class="form-control">
+
+                    <option value="FACULTY">Faculty</option>
+                    <option value="STUDENT">Student</option>
+                </select></td>
+                <td><span class="float-right" style="white-space: nowrap">
+								<i class="btn fa-2x fa fa-search wbdev-search" data-toggle="tooltip"
+                                   data-placement="top" title="Search"> </i> <i
+                        class="btn fa-2x fa fa-user-plus wbdev-create" data-toggle="tooltip"
+                        data-placement="top" title="Create"> </i> <i
+                        class="btn fa-2x fa fa-wrench wbdev-update" data-toggle="tooltip"
+                        data-placement="top" title="Update"> </i>
 						</span></td>
-					</tr>
-				</thead>
-				<tbody class="table-body">
-					<tr class="wbdev-template wbdev-user wbdev-hidden">
-						<td class="wbdev-username">rastogi.s</td>
-						<td>*****</td>
-						<td class="wbdev-first-name">Shubham</td>
-						<td class="wbdev-last-name">Rastogi</td>
-						<td class="wbdev-role">FACULTY</td>
-						<td class="wbdev-actions"><span class="float-right"> <i
-								id="wbdev-remove" class="fa-2x fa fa-times wbdev-remove"></i> <i
-								id="webdev-edit" class="fa-2x fa fa-pencil wbdev-edit"></i>
+            </tr>
+            </thead>
+            <tbody class="table-body">
+            <tr class="wbdev-template wbdev-user wbdev-hidden">
+                <td class="wbdev-username">rastogi.s</td>
+                <td>*****</td>
+                <td class="wbdev-first-name">Shubham</td>
+                <td class="wbdev-last-name">Rastogi</td>
+                <td class="wbdev-role">Faculty</td>
+                <td class="wbdev-actions"><span class="float-right"> <i
+                        id="wbdev-remove" class="btn fa-2x fa fa-trash-alt wbdev-remove"
+                        data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+								<i id="wbdev-edit" class="btn fa-2x fa fa-user-edit wbdev-edit"
+                                   data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
 						</span></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-	<footer class=""> </footer>
+            </tr>
 
-	<!-- Jquery lib -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-
-	<!-- Custom JS -->
-	<script src="../../services/user.service.client.js"></script>
-	<script src="user-admin.controller.client.js"></script>
+            </tbody>
+        </table>
+    </div>
+</section>
+<footer class=""></footer>
 
 
-	<!-- Bootstrap core JavaScript -->
+<!-- Jquery lib -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-		crossorigin="anonymous"></script>
+<!-- Custom JS -->
+<script src="../../services/user.service.client.js"></script>
+<script src="user-admin.controller.client.js"></script>
 
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 </body>
 </html>

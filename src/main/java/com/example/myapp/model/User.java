@@ -23,6 +23,10 @@ public class User {
 	private Date dateOfBirth;   // date of birth of the user
 	
 	
+	public User() {
+		
+	}
+	
 	public User(String username, String password, String firstName, String lastName, String phone, String email,
 			String role, Date dateOfBirth) {
 		this.username = username;

@@ -21,8 +21,9 @@ public class UserService {
 
 	@PostMapping("/api/user")
 	public User createUser(@RequestBody User user) {
-
+		
 		return repository.save(user);
+		
 	}
 
 	@GetMapping("/api/user")

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,11 +35,13 @@ public class UserService {
 	@GetMapping("/api/user/{userId}")
 	public User findUserById(@PathVariable("userId") int id) {
 		Optional<User> op = repository.findById(id);
-		User user = op.get();
+		User user=null;
+		if(op.isPresent())
+			user = op.get();
 		return user;
 	}
 
-	@PostMapping("/api/user/{userId}")
+	@PutMapping("/api/user/{userId}")
 	public User updateUser(@PathVariable("userId") int id, @RequestBody User user) {
 		User temp = findUserById(id);
 		temp.setFirstName(user.getFirstName());

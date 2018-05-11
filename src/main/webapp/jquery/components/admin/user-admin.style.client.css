@@ -1,3 +1,7 @@
 i:hover {
     background: gray !important;
 }
+
+.icon-col{
+    white-space: nowrap;
+}

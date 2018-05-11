@@ -1,4 +1,4 @@
-function AdminUserServiceClient() {
+function UserServiceClient() {
     this.createUser = createUser;
     this.findAllUsers = findAllUsers;
     this.findUserById = findUserById;
@@ -11,9 +11,13 @@ function AdminUserServiceClient() {
         return fetch(self.url, {
             method: 'POST',
             body: JSON.stringify(user),
-            headers: {  'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json'
+            }
 
-        }).then(function (response){ return response.json();  }).then(callback);
+        }).then(function (response) {
+            return response.json();
+        }).then(callback);
 
     }
 
@@ -25,19 +29,26 @@ function AdminUserServiceClient() {
     }
 
     function findUserById(userId, callback) {
-        return fetch(self.url + '/' + userId).then(callback);
+        return fetch(self.url + '/' + userId).then(function (response) {
+            return response.json();
+        }).then(callback);
     }
 
     function updateUser(userId, user, callback) {
         return fetch(self.url + '/' + userId, {
             method: 'PUT',
-            body: JSON.stringify(user)
-        });
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(callback);;
     }
 
     function deleteUser(userId, callback) {
         return fetch(self.url + '/' + userId, {
             method: 'DELETE',
-        });
+        }).then(callback);
     }
 }

@@ -30,7 +30,6 @@
             var pass = document.getElementById('username');
             var $validDiv = $('.invalid-username');
             $validDiv.text("Username already exists!! Try another");
-            var form = document.getElementsByClassName('needs-validation')[0];
             pass.classList.add('is-invalid');
 
         }

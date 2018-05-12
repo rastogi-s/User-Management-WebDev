@@ -1,6 +1,10 @@
 package com.example.myapp.services;
 
+import java.util.Iterator;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.myapp.model.User;
 import com.example.myapp.repositories.UserRepository;
 
@@ -66,8 +71,12 @@ public class UserService {
 	@GetMapping("/api/user")
 	public Iterable<User> findAllUsers(@RequestParam(name = "username", required = false) String username,
 			@RequestParam(name = "password", required = false) String password) {
+		
+		System.out.println(username+", "+password);
 		if (username != null && password != null) {
+			System.out.println("in hereeee");
 			return repository.findUserByCredentials(username, password);
+			
 		}
 		if (username != null) {
 			return repository.findUserByUsername(username);
@@ -83,5 +92,18 @@ public class UserService {
 		    return "SUCCESS";
 		}
 		return "FAIL";
+	}
+	
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user, HttpSession session) {
+		Iterable<User> users = findAllUsers(user.getUsername(),user.getPassword());
+		Iterator<User> it=users.iterator();
+		if(it.hasNext()) {
+			User u=it.next();
+			System.out.println("User :"+u.getUsername());
+			session.setAttribute("loggedUser", u);
+		    return u;
+		}
+		return null;
 	}
 }

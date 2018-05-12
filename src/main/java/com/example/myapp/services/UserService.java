@@ -1,7 +1,6 @@
 package com.example.myapp.services;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.myapp.model.User;
 import com.example.myapp.repositories.UserRepository;
 
@@ -22,21 +21,21 @@ public class UserService {
 
 	@PostMapping("/api/user")
 	public User createUser(@RequestBody User user) {
-		
+
 		return repository.save(user);
-		
+
 	}
 
-	@GetMapping("/api/user")
-	public Iterable<User> findAllUsers() {
-		return repository.findAll();
-	}
+	// @GetMapping("/api/user")
+	// public Iterable<User> findAllUsers() {
+	// return repository.findAll();
+	// }
 
 	@GetMapping("/api/user/{userId}")
 	public User findUserById(@PathVariable("userId") int id) {
 		Optional<User> op = repository.findById(id);
-		User user=null;
-		if(op.isPresent())
+		User user = null;
+		if (op.isPresent())
 			user = op.get();
 		return user;
 	}
@@ -48,7 +47,7 @@ public class UserService {
 		temp.setLastName(user.getLastName());
 		temp.setPassword(user.getPassword());
 		temp.setUsername(user.getUsername());
-
+		temp.setRole(user.getRole());
 		return repository.save(temp);
 	}
 
@@ -57,4 +56,32 @@ public class UserService {
 		repository.deleteById(id);
 	}
 
+	// @GetMapping("/api/user")
+	// public Iterable<User> findAllUsers(@RequestParam(name = "username", required
+	// = false) String username) {
+	//
+	// return repository.findAll();
+	// }
+
+	@GetMapping("/api/user")
+	public Iterable<User> findAllUsers(@RequestParam(name = "username", required = false) String username,
+			@RequestParam(name = "password", required = false) String password) {
+		if (username != null && password != null) {
+			return repository.findUserByCredentials(username, password);
+		}
+		if (username != null) {
+			return repository.findUserByUsername(username);
+		}
+		return repository.findAll();
+	}
+
+	@PostMapping("/api/register")
+	public String registerUser(@RequestBody User user) {
+		Iterable<User> users = findAllUsers(user.getUsername(),null);
+		if(!users.iterator().hasNext()) {
+		    repository.save(user);
+		    return "SUCCESS";
+		}
+		return "FAIL";
+	}
 }

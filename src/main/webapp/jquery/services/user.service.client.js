@@ -4,10 +4,13 @@ function UserServiceClient() {
     this.findUserById = findUserById;
     this.deleteUser = deleteUser;
     this.updateUser = updateUser;
+    this.register = register;
     this.url = 'http://localhost:8080/api/user';
+    this.urlRegister='http://localhost:8080/api/register';
     var self = this;
 
     function createUser(user, callback) {
+
         return fetch(self.url, {
             method: 'POST',
             body: JSON.stringify(user),
@@ -43,12 +46,34 @@ function UserServiceClient() {
             }
         }).then(function (response) {
             return response.json();
-        }).then(callback);;
+        }).then(callback);
     }
 
     function deleteUser(userId, callback) {
         return fetch(self.url + '/' + userId, {
             method: 'DELETE',
         }).then(callback);
+    }
+
+    function register(user,callback){
+        // return $.ajax({
+        //     url: self.urlRegister,
+        //     type: 'POST',
+        //     data: JSON.stringify(user),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     success: callback
+        // });
+        return fetch(self.urlRegister , {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.text();
+        }).then(callback);
+
     }
 }

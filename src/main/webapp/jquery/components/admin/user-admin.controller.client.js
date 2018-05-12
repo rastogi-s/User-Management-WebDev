@@ -37,7 +37,7 @@
 
     function editUser(event) {
         console.log('edit User');
-        $updateBtn = $(event.currentTarget);
+        $removeBtn = $(event.currentTarget);
         var id = $removeBtn.parent().parent().parent().attr('id');
         userService.findUserById(id, populateValues);
 

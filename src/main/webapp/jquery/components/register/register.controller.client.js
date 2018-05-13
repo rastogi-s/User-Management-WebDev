@@ -37,6 +37,8 @@
         else{
             $('.form-control').val('');
             $('.message').text("User Registered Successfully");
+            var form = document.getElementsByClassName('needs-validation')[0];
+            form.classList.remove('was-validated');
         }
 
     }

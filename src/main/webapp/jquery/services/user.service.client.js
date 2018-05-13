@@ -8,10 +8,10 @@ function UserServiceClient() {
     this.login=login;
     //this.logout=logout;
     //this.findLoggedUser=findLoggedUser;
-    this.url = 'http://localhost:8080/api/user';
-    this.urlRegister='http://localhost:8080/api/register';
+    this.url = '/api/user';
+    this.urlRegister='/api/register';
     //this.urlLoggedUser='http://localhost:8080/api/logged';
-    this.urlLogin='http://localhost:8080/api/login';
+    this.urlLogin='/api/login';
     //this.urlLogout='http://localhost:8080/api/logout'
     var self = this;
 

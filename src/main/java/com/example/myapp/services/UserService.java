@@ -31,11 +31,6 @@ public class UserService {
 
 	}
 
-	// @GetMapping("/api/user")
-	// public Iterable<User> findAllUsers() {
-	// return repository.findAll();
-	// }
-
 	@GetMapping("/api/user/{userId}")
 	public User findUserById(@PathVariable("userId") int id) {
 		Optional<User> op = repository.findById(id);
@@ -48,11 +43,7 @@ public class UserService {
 	@PutMapping("/api/user/{userId}")
 	public User updateUser(@PathVariable("userId") int id, @RequestBody User user) {
 		User temp = findUserById(id);
-		temp.setFirstName(user.getFirstName());
-		temp.setLastName(user.getLastName());
-		temp.setPassword(user.getPassword());
-		temp.setUsername(user.getUsername());
-		temp.setRole(user.getRole());
+		temp.set(user);
 		return repository.save(temp);
 	}
 
@@ -61,22 +52,12 @@ public class UserService {
 		repository.deleteById(id);
 	}
 
-	// @GetMapping("/api/user")
-	// public Iterable<User> findAllUsers(@RequestParam(name = "username", required
-	// = false) String username) {
-	//
-	// return repository.findAll();
-	// }
-
 	@GetMapping("/api/user")
 	public Iterable<User> findAllUsers(@RequestParam(name = "username", required = false) String username,
 			@RequestParam(name = "password", required = false) String password) {
-		
-		System.out.println(username+", "+password);
+
 		if (username != null && password != null) {
-			System.out.println("in hereeee");
 			return repository.findUserByCredentials(username, password);
-			
 		}
 		if (username != null) {
 			return repository.findUserByUsername(username);
@@ -86,24 +67,61 @@ public class UserService {
 
 	@PostMapping("/api/register")
 	public String registerUser(@RequestBody User user) {
-		Iterable<User> users = findAllUsers(user.getUsername(),null);
-		if(!users.iterator().hasNext()) {
-		    repository.save(user);
-		    return "SUCCESS";
+		Iterable<User> users = findAllUsers(user.getUsername(), null);
+		if (!users.iterator().hasNext()) {
+			repository.save(user);
+			return "SUCCESS";
 		}
 		return "FAIL";
 	}
-	
+
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user, HttpSession session) {
-		Iterable<User> users = findAllUsers(user.getUsername(),user.getPassword());
-		Iterator<User> it=users.iterator();
-		if(it.hasNext()) {
-			User u=it.next();
-			System.out.println("User :"+u.getUsername());
-			session.setAttribute("loggedUser", u);
-		    return u;
+	public User login(@RequestBody User user) {
+		Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
+		Iterator<User> it = users.iterator();
+		if (it.hasNext()) {
+			User u = it.next();
+			return u;
 		}
 		return null;
 	}
+	
+	
+
+	
+	
+	
+	
+	// session management functions commented out....
+	
+//	@PostMapping("/api/logout")
+//	public void logout(HttpSession session) {
+//		session.invalidate();
+//		
+//	}
+//	
+//	@PostMapping("/api/login")
+//	public User login(@RequestBody User user, HttpSession session) {
+//		Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
+//		Iterator<User> it = users.iterator();
+//		if (it.hasNext()) {
+//			User u = it.next();
+//			session.setAttribute("loggedUser", u);
+//			return u;
+//		}
+//		return null;
+//	}
+//	
+//	@GetMapping("/api/logged")
+//	public User findLoggedUser(HttpSession session) {
+//		User user = null;
+//		if (session.getAttribute("loggedUser")!=null) {
+//			
+//			user=(User) session.getAttribute("loggedUser");
+//		}
+//		
+//		System.out.println(user);
+//		return user;
+//	}
+	
 }

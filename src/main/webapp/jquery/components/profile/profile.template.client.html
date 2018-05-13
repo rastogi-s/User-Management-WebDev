@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+
+
+    <!-- Lib for fonts for this template -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+          integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+          crossorigin="anonymous">
+
+    <!-- Custom CSS for this template -->
+    <link rel="stylesheet" href="profile.style.client.css"/>
+
+</head>
+<body>
+<header class="">
+    <div class="container">
+        <h1>Profile</h1>
+    </div>
+</header>
+<section class="content">
+    <div class="container">
+        <form class="needs-validation">
+            <div class="form-group row">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+
+                <div class="col-sm-10">
+                    <input type="text" placeholder="Username" readonly id="username" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="firstname" class="col-sm-2 col-form-label">First Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" placeholder="First Name"  id="firstname" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" placeholder="Last Name"  id="lastname" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+
+                <div class="col-sm-10">
+                    <input type="tel" placeholder="xxx-xxx-xxxx" maxlength="12" pattern="^[0-9]+(-[0-9]+)+$" id="phone" class="form-control">
+                    <div class="invalid-feedback invalid-telephone">
+                        Please enter a valid phone number!!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" placeholder="abc@xyz.com" id="email" class="form-control">
+                    <div class="invalid-feedback invalid-email">
+                        Please enter a valid email id!!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="role" class="col-sm-2 col-form-label">Role</label>
+
+                <div class="col-sm-10">
+                    <select id="role" class="form-control" >
+                        <option value="" selected >Select a role</option>
+                        <option value="FACULTY" >Faculty</option>
+                        <option value="STUDENT">Student</option>
+                        <option value="ADMIN">Admin</option>
+
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-group row">
+
+                <label for="dob" class="col-sm-2 col-form-label">Date Of Birth</label>
+
+                <div class="col-sm-10">
+                    <input type="date" placeholder="1991-03-08" id="dob" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <span class="col-sm-2"></span>
+                <div class="col-sm-10 d-inline-block">
+                    <div class="py-1">
+                        <button type="button" class="btn btn-success form-control" id="update">Update</button>
+                    </div>
+                    <div class="py-1">
+                        <button type="button" class="btn btn-primary form-control" id="logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</section>
+<footer class=""></footer>
+
+
+<!-- Jquery lib -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<!-- Custom JS -->
+<script src="../../services/user.service.client.js"></script>
+<script src="../../models/user.model.client.js"></script>
+<script src="profile.controller.client.js"></script>
+
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

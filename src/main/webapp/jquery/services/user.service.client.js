@@ -6,9 +6,13 @@ function UserServiceClient() {
     this.updateUser = updateUser;
     this.register = register;
     this.login=login;
+    //this.logout=logout;
+    //this.findLoggedUser=findLoggedUser;
     this.url = 'http://localhost:8080/api/user';
     this.urlRegister='http://localhost:8080/api/register';
+    //this.urlLoggedUser='http://localhost:8080/api/logged';
     this.urlLogin='http://localhost:8080/api/login';
+    //this.urlLogout='http://localhost:8080/api/logout'
     var self = this;
 
     function createUser(user, callback) {
@@ -78,11 +82,21 @@ function UserServiceClient() {
                 'content-type':'application/json'
             }
         }).then(function (response) {
-            //console.log(response);
-            //console.log(response.headers.get("content-type"));
             if(response.headers.get("content-type")!=null)
             return response.json();
             else return null;
         }).then(callback);
     }
+
+    // function logout(callback) {
+    //     return fetch(self.urlLogout, {
+    //         method:'POST'
+    //     });
+    // }
+    //
+    // function findLoggedUser(callback){
+    //     return fetch(self.urlLoggedUser).then(function (response) {
+    //         return response.json();
+    //     }).then(callback);
+    // }
 }

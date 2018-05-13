@@ -31,6 +31,9 @@
 
         }
         else {
+             var action="../profile/profile.template.client.html";
+             $('.needs-validation').attr('action',action);
+            localStorage["id"]=userObj.id;
             $('.needs-validation').submit();
 
         }

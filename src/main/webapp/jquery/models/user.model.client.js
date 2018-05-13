@@ -1,108 +1,140 @@
 function User(username, password, firstName, lastName, email, phone, role,
-		dateOfBirth) {
-	this.username = username;
-	this.password = password;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.email = email;
-	this.phone = phone;
-	this.role = role;
-	this.dateOfBirth = dateOfBirth;
+              dateOfBirth) {
+    this.username = username;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phone = phone;
+    this.role = role;
+    this.dateOfBirth = dateOfBirth;
+    this.fields = {
+        'username': this.username,
+        'password': this.password,
+        'firstName': this.firstName,
+        'lastName': this.lastName,
+        'email': this.email,
+        'phone': this.phone,
+        'role': this.role,
+        'dateOfBirth': this.dateOfBirth
+    }
 
-	// username
-	this.setUsername = setUsername;
-	this.getUsername = getUsername;
 
-	// password
-	this.setPassword = setPassword;
-	this.getPassword = getPassword;
+    // username
+    this.setUsername = setUsername;
+    this.getUsername = getUsername;
 
-	// first name
-	this.setFirstName = setFirstName;
-	this.getFirstName = getFirstName;
+    // password
+    this.setPassword = setPassword;
+    this.getPassword = getPassword;
 
-	// last name
-	this.setLastName = setLastName;
-	this.getLastName = getLastName;
+    // first name
+    this.setFirstName = setFirstName;
+    this.getFirstName = getFirstName;
 
-	// email
-	this.setEmail = setEmail;
-	this.getEmail = getEmail;
+    // last name
+    this.setLastName = setLastName;
+    this.getLastName = getLastName;
 
-	// phone
-	this.setPhone = setPhone;
-	this.getPhone = getPhone;
+    // email
+    this.setEmail = setEmail;
+    this.getEmail = getEmail;
 
-	// role
-	this.setRole = setRole;
-	this.getRole = getRole;
+    // phone
+    this.setPhone = setPhone;
+    this.getPhone = getPhone;
 
-	// dateOfBirth
-	this.setDateOfBirth = setDateOfBirth;
-	this.getDateOfBirth = getDateOfBirth;
+    // role
+    this.setRole = setRole;
+    this.getRole = getRole;
 
-	// getter setter for username
-	function setUsername(username) {
-		this.username = username;
-	}
-	function getUsername() {
-		return this.username;
-	}
+    // dateOfBirth
+    this.setDateOfBirth = setDateOfBirth;
+    this.getDateOfBirth = getDateOfBirth;
 
-	// getter setter for password
-	function setPassword(password) {
-		this.password = password;
-	}
-	function getPassword() {
-		return this.password;
-	}
+    this.getJsonData = getJsonData;
 
-	// getter setter for first name
-	function setFirstName(firstName) {
-		this.firstName = firstName;
-	}
-	function getFirstName() {
-		return this.firstName;
-	}
+    // getter setter for username
+    function setUsername(username) {
+        this.username = username;
+    }
 
-	// getter setter for last name
-	function setLastName(lastName) {
-		this.lastName = lastName;
-	}
-	function getLastName() {
-		return this.lastName;
-	}
+    function getUsername() {
+        return this.username;
+    }
 
-	// getter setter for email
-	function setEmail(email) {
-		this.email = email;
-	}
-	function getEmail() {
-		return this.email;
-	}
+    // getter setter for password
+    function setPassword(password) {
+        this.password = password;
+    }
 
-	// getter setter for phone
-	function setPhone(phone) {
-		this.phone = phone;
-	}
-	function getPhone() {
-		return this.phone;
-	}
+    function getPassword() {
+        return this.password;
+    }
 
-	// getter setter for last name
-	function setRole(role) {
-		this.role = role;
-	}
-	function getRole() {
-		return this.role;
-	}
+    // getter setter for first name
+    function setFirstName(firstName) {
+        this.firstName = firstName;
+    }
 
-	// getter setter for last name
-	function setDateOfBirth(dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-	function getDateOfBirth() {
-		return this.dateOfBirth;
-	}
+    function getFirstName() {
+        return this.firstName;
+    }
+
+    // getter setter for last name
+    function setLastName(lastName) {
+        this.lastName = lastName;
+    }
+
+    function getLastName() {
+        return this.lastName;
+    }
+
+    // getter setter for email
+    function setEmail(email) {
+        this.email = email;
+    }
+
+    function getEmail() {
+        return this.email;
+    }
+
+    // getter setter for phone
+    function setPhone(phone) {
+        this.phone = phone;
+    }
+
+    function getPhone() {
+        return this.phone;
+    }
+
+    // getter setter for last name
+    function setRole(role) {
+        this.role = role;
+    }
+
+    function getRole() {
+        return this.role;
+    }
+
+    // getter setter for last name
+    function setDateOfBirth(dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    function getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+
+    function getJsonData() {
+        var user = {};
+        for (var attr in this.fields) {
+            if (this.fields[attr] != null) {
+                user[attr] = this.fields[attr];
+            }
+        }
+
+        return user;
+    }
 
 }

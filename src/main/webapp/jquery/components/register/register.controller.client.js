@@ -16,7 +16,8 @@
     function register(event) {
         var validation = disableBrowserValidations(event);
         if (validation === true) {
-            var user = new User($usernameFld.val(), $passwordFld.val(), "", "", "", "", "", "");
+            var user = new User($usernameFld.val(), $passwordFld.val(),
+                null,null,null,null,null,null).getJsonData();
             userService.register(user, success);
             return true;
         }

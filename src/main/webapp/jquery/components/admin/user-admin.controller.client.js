@@ -55,8 +55,8 @@
     function createUser() {
         console.log('create user');
         var user = new User($usernameFld.val(), $passwordFld.val(),
-            $firstNameFld.val(), $lastNameFld.val(), "", "",
-            $roleFld.val(), "");
+            $firstNameFld.val(), $lastNameFld.val(), null, null,
+            $roleFld.val(), null);
         console.log(JSON.stringify(user));
         userService.createUser(user, renderUser);
     }
@@ -86,8 +86,8 @@
         console.log(id);
         if (id!= null && id!="") {
             var user = new User($usernameFld.val(), $passwordFld.val(),
-                $firstNameFld.val(), $lastNameFld.val(), "", "",
-                $roleFld.val(), "");
+                $firstNameFld.val(), $lastNameFld.val(),null, null,
+                $roleFld.val(),null).getJsonData();
 
             userService.updateUser(id,user,findAllUsers)
         }
@@ -132,6 +132,7 @@
     }
 
     function createUserObj(jsonObj){
+
         var userObj = new User(jsonObj.username, jsonObj.password, jsonObj.firstName,
             jsonObj.lastName, jsonObj.email, jsonObj.phone, jsonObj.role,
             jsonObj.dateOfBirth);

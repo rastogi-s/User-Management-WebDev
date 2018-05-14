@@ -6,13 +6,16 @@ function UserServiceClient() {
     this.updateUser = updateUser;
     this.register = register;
     this.login=login;
+    this.sendPasswordResetEmail=sendPasswordResetEmail;
+    this.verifyUser=verifyUser;
     //this.logout=logout;
     //this.findLoggedUser=findLoggedUser;
     this.url = '/api/user';
     this.urlRegister='/api/register';
     //this.urlLoggedUser='http://localhost:8080/api/logged';
     this.urlLogin='/api/login';
-    this.urlPassReset="/api/reset"
+    this.urlPassReset="/api/reset";
+    this.urlVerifyUsername="/api/verify";
     //this.urlLogout='http://localhost:8080/api/logout'
     var self = this;
 
@@ -90,12 +93,23 @@ function UserServiceClient() {
     }
 
     function sendPasswordResetEmail(emailId,pagelink,callback){
-        return fetch(self.urlPassReset+'/'+emailId +'/link/'+pagelink,{
+        return fetch(self.urlPassReset,{
             method:'POST',
-            headers:{
-                'content-type':'application/json'
-            }
+            body:emailId+" "+pagelink,
+            // headers:{
+            //     'content-type':'application/json'
+            // }
         }).then(callback);
+    }
+
+    function verifyUser(username,callback){
+        return fetch(self.urlVerifyUsername + '/' + username).then(function (response) {
+            console.log(response);
+            if(response.headers.get("content-type")!=null)
+                return response.json();
+            else return null;
+        }).then(callback);
+
     }
 
     // function logout(callback) {

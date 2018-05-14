@@ -47,7 +47,6 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="form-group row">
                 <label for="password" class="col-sm-2 col-form-label">Password</label>
@@ -68,7 +67,7 @@
                         <button type="button" class="btn btn-success form-control" id="login">Sign In</button>
                     </div>
                     <div class="py-1 d-inline">
-                        <a href="" class="float-left" data-toggle="modal" data-target="#forgotPassword">Forgot
+                        <a href="" class="float-left forgot-pass" data-toggle="modal"  data-target="#forgotPassword">Forgot
                             Password?</a>
                         <a href="../register/register.template.client.html" class="float-right">Sign Up</a>
                     </div>
@@ -93,8 +92,8 @@
                             <div class="form-group row">
                                 <label for="usernameVerify" class="col-sm-2 col-form-label">Username</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Username" id="usernameVerify" class="form-control"
-                                           required oninput="initialize()">
+                                    <input type="text" placeholder="Username" id="usernameVerify"  class="form-control"
+                                           required >
 
                                     <div class="invalid-feedback invalid-username-verify">
                                         Please enter a valid username!!
@@ -105,18 +104,18 @@
                                 <label for="resetEmail" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input type="email" placeholder="abc@xyz.com" id="resetEmail" class="form-control"
-                                           required oninput="initialize()">
+                                           required >
 
                                     <div class="invalid-feedback invalid-username-verify">
-                                        Please enter a valid username!!
+                                        Please enter a valid email!!
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sendEmail">Close</button>
-                        <button type="button" class="btn btn-primary">Send Email</button>
+                        <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal"  >Close</button>
+                        <button type="button" class="btn btn-primary" id="sendEmail" >Send Email</button>
                     </div>
                 </div>
             </div>

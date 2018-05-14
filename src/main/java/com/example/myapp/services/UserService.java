@@ -1,5 +1,4 @@
 package com.example.myapp.services;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Optional;
@@ -82,20 +81,41 @@ public class UserService {
 		}
 		return null;
 	}
-
-	@PostMapping("/api/reset/{emailId}/link/{page}")
-	public void sendEmail(@PathVariable("emailId") String emailID, @PathVariable("page") String page) {
-
+	
+	@PostMapping("/api/reset")
+	public void sendEmail(@RequestBody String data) {
+		String arr[]=data.split(" ");
+		System.out.println(data);
 		PasswordResetEmailService pass = new PasswordResetEmailService();
-		System.out.println("email id"+emailID+" ,"+"page :"+page);
+		System.out.println("email id"+arr[0]+" ,"+"page :"+arr[1]);
 		try {
-			pass.sendPasswordResetEmail(emailID, page);
+			pass.sendPasswordResetEmail(arr[0], arr[1]);
 
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 
+	}
+	
+//	@PostMapping("/api/reset/{emailId}/link/{page}")
+//	public void sendEmail(@PathVariable("emailId") String emailID, @PathVariable("page") String page) {
+//
+//		PasswordResetEmailService pass = new PasswordResetEmailService();
+//		System.out.println("email id"+emailID+" ,"+"page :"+page);
+//		try {
+//			pass.sendPasswordResetEmail(emailID, page);
+//
+//		} catch (IOException e) {
+//
+//			e.printStackTrace();
+//		}
+//
+//	}
+
+	@GetMapping("/api/verify/{username}")
+	public Iterable<User> verifyUser(@PathVariable("username") String  username) {
+		return repository.findUserByUsername(username);
 	}
 
 	// session management functions commented out....

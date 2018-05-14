@@ -1,20 +1,29 @@
 (function () {
-    var $usernameFld, $passwordFld;
-    var $loginBtn;
+    var $usernameFld, $passwordFld, $usernameVerify, $emailReset;
+    var $loginBtn, $sendEmailBtn,$forgotPassLink;
     var userService;
+    var resetUrl='/jquery/components/reset-password.template.client.html';
     $(main);
+    $('.form-control').focus(validate)
 
     function main() {
         $usernameFld = $('#username');
         $passwordFld = $('#password');
-        $loginBtn = $('#login')
-        userService = new UserServiceClient();
+        $loginBtn = $('#login');
+        $sendEmailBtn = $('#sendEmail');
+        $usernameVerify = $('#usernameVerify');
+        $emailReset = $('#resetEmail');
+        $forgotPassLink = $('.forgot-pass');
+        $forgotPassLink.click(clearFields);
+        $sendEmailBtn.click(sendEmail);
         $loginBtn.click(login);
+        userService = new UserServiceClient();
 
     }
 
+
     function login(event) {
-        var validation = disableBrowserValidations(event);
+        var validation = disableBrowserValidations(event,0);
         if (validation == true) {
             userService.login($usernameFld.val(), $passwordFld.val(), success);
         }
@@ -26,21 +35,21 @@
         if (userObj == null) {
             user.classList.add('is-invalid');
             password.classList.add('is-invalid');
-            $('.alert').css('display','block');
+            $('.alert').css('display', 'block');
 
         }
         else {
-             var action="../profile/profile.template.client.html";
-             $('.needs-validation').attr('action',action);
-            localStorage["id"]=userObj.id;
+            var action = "../profile/profile.template.client.html";
+            $('.needs-validation').attr('action', action);
+            localStorage["id"] = userObj.id;
             $('.needs-validation').submit();
 
         }
 
     }
 
-    function disableBrowserValidations(event) {
-        var form = document.getElementsByClassName('needs-validation')[0];
+    function disableBrowserValidations(event,i) {
+        var form = document.getElementsByClassName('needs-validation')[i];
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
@@ -49,6 +58,41 @@
         }
 
         return true;
+    }
+
+    function sendEmail(event) {
+        var validation = disableBrowserValidations(event,1);
+        if (validation === true)
+            userService.verifyUser($usernameVerify.val(), verifyUsername);
+    }
+
+    function verifyUsername(users) {
+        var user=users[0];
+        if (user != null) {
+            var url=window.location.href;
+            console.log(url);
+            url=url.slice(0,url.lastIndexOf('jquery')-1);
+            console.log(url);
+            console.log(url+ resetUrl+"?id=" + user.id);
+            userService.sendPasswordResetEmail($emailReset.val(),url+ resetUrl+"?id=" + user.id, success);
+        } else {
+            var userVerifyFld = document.getElementById('usernameVerify');
+            userVerifyFld.classList.add('is-invalid');
+
+        }
+    }
+
+    function success() {
+        console.log('email-sent');
+    }
+
+    function validate(){
+        var username = document.getElementById('usernameVerify');
+        username.classList.remove('is-invalid');
+    }
+
+    function clearFields(){
+        $('.form-control').val('');
     }
 
 
@@ -60,6 +104,6 @@ function initialize() {
     var username = document.getElementById('username');
     password.classList.remove('is-invalid');
     username.classList.remove('is-invalid');
-    $('.alert').css('display','none');
+    $('.alert').css('display', 'none');
 
 }

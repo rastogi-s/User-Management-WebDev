@@ -2,6 +2,7 @@
     var $passwordFld, $verifyPasswordFld;
     var $resetBtn;
     var userService;
+    var id;
     $(main);
 
     function main() {
@@ -10,6 +11,7 @@
         $resetBtn = $('#reset');
         $resetBtn.click(reset);
         userService = new UserServiceClient();
+        id=fetchId();
     }
 
     function reset(event) {
@@ -54,6 +56,15 @@
         }
 
         return true;
+    }
+
+    function fetchId()
+    {
+        var param = window.location.href.slice(window.location.href.indexOf('?') + 1);
+        var values = param.split('=');
+        console.log(values[1]);
+        return values[1];
+
     }
 
 })();

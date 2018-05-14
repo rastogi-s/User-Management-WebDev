@@ -2,7 +2,7 @@
     var $usernameFld, $passwordFld, $usernameVerify, $emailReset;
     var $loginBtn, $sendEmailBtn,$forgotPassLink;
     var userService;
-    var resetUrl='/jquery/components/reset-password.template.client.html';
+    var resetUrl='/jquery/components/passwordreset/reset-password.template.client.html';
     $(main);
     $('.form-control').focus(validate)
 
@@ -74,7 +74,7 @@
             url=url.slice(0,url.lastIndexOf('jquery')-1);
             console.log(url);
             console.log(url+ resetUrl+"?id=" + user.id);
-            userService.sendPasswordResetEmail($emailReset.val(),url+ resetUrl+"?id=" + user.id, success);
+            userService.sendPasswordResetEmail($emailReset.val(),url+ resetUrl+"?id=" + user.id, emailsuccess);
         } else {
             var userVerifyFld = document.getElementById('usernameVerify');
             userVerifyFld.classList.add('is-invalid');
@@ -82,8 +82,12 @@
         }
     }
 
-    function success() {
+    function emailsuccess() {
         console.log('email-sent');
+        $('.alert').css('display', 'block');
+        $('.alert').text('Email to reset successfully sent!! Check your inbox.')
+        $('.modal').modal('hide');
+
     }
 
     function validate(){

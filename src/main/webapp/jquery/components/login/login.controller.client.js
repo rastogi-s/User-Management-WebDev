@@ -22,12 +22,11 @@
 
     function success(userObj) {
         var user = document.getElementById('username');
-        var $errorMessage = $('.message');
         var password = document.getElementById('password');
         if (userObj == null) {
             user.classList.add('is-invalid');
             password.classList.add('is-invalid');
-            $errorMessage.text("Entered a wrong username or password!!");
+            $('.alert').css('display','block');
 
         }
         else {
@@ -61,6 +60,6 @@ function initialize() {
     var username = document.getElementById('username');
     password.classList.remove('is-invalid');
     username.classList.remove('is-invalid');
-    $('.message').text("");
+    $('.alert').css('display','none');
 
 }

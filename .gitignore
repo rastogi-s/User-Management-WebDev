@@ -22,4 +22,5 @@
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
+/.nb-gradle/"sendgrid.env" 
+"sendgrid.env"  source ./sendgrid.env

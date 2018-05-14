@@ -1,10 +1,8 @@
 package com.example.myapp.services;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Optional;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.myapp.model.User;
 import com.example.myapp.repositories.UserRepository;
 
@@ -85,43 +82,52 @@ public class UserService {
 		}
 		return null;
 	}
-	
-	
 
-	
-	
-	
-	
+	@PostMapping("/api/reset/{emailId}/link/{page}")
+	public void sendEmail(@PathVariable("emailId") String emailID, @PathVariable("page") String page) {
+
+		PasswordResetEmailService pass = new PasswordResetEmailService();
+		System.out.println("email id"+emailID+" ,"+"page :"+page);
+		try {
+			pass.sendPasswordResetEmail(emailID, page);
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
 	// session management functions commented out....
-	
-//	@PostMapping("/api/logout")
-//	public void logout(HttpSession session) {
-//		session.invalidate();
-//		
-//	}
-//	
-//	@PostMapping("/api/login")
-//	public User login(@RequestBody User user, HttpSession session) {
-//		Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
-//		Iterator<User> it = users.iterator();
-//		if (it.hasNext()) {
-//			User u = it.next();
-//			session.setAttribute("loggedUser", u);
-//			return u;
-//		}
-//		return null;
-//	}
-//	
-//	@GetMapping("/api/logged")
-//	public User findLoggedUser(HttpSession session) {
-//		User user = null;
-//		if (session.getAttribute("loggedUser")!=null) {
-//			
-//			user=(User) session.getAttribute("loggedUser");
-//		}
-//		
-//		System.out.println(user);
-//		return user;
-//	}
-	
+
+	// @PostMapping("/api/logout")
+	// public void logout(HttpSession session) {
+	// session.invalidate();
+	//
+	// }
+	//
+	// @PostMapping("/api/login")
+	// public User login(@RequestBody User user, HttpSession session) {
+	// Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
+	// Iterator<User> it = users.iterator();
+	// if (it.hasNext()) {
+	// User u = it.next();
+	// session.setAttribute("loggedUser", u);
+	// return u;
+	// }
+	// return null;
+	// }
+	//
+	// @GetMapping("/api/logged")
+	// public User findLoggedUser(HttpSession session) {
+	// User user = null;
+	// if (session.getAttribute("loggedUser")!=null) {
+	//
+	// user=(User) session.getAttribute("loggedUser");
+	// }
+	//
+	// System.out.println(user);
+	// return user;
+	// }
+
 }

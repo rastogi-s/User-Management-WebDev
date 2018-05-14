@@ -12,6 +12,7 @@ function UserServiceClient() {
     this.urlRegister='/api/register';
     //this.urlLoggedUser='http://localhost:8080/api/logged';
     this.urlLogin='/api/login';
+    this.urlPassReset="/api/reset"
     //this.urlLogout='http://localhost:8080/api/logout'
     var self = this;
 
@@ -85,6 +86,15 @@ function UserServiceClient() {
             if(response.headers.get("content-type")!=null)
             return response.json();
             else return null;
+        }).then(callback);
+    }
+
+    function sendPasswordResetEmail(emailId,pagelink,callback){
+        return fetch(self.urlPassReset+'/'+emailId +'/link/'+pagelink,{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            }
         }).then(callback);
     }
 

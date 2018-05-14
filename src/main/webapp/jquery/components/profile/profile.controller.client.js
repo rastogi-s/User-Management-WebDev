@@ -3,6 +3,7 @@
     var $logoutBtn, $updateBtn;
     var userService;
     $(main);
+    $('.form-control').focus(hidemessage);
 
     function main() {
         $usernameFld = $('#username');
@@ -45,6 +46,7 @@
             var id = document.cookie.split('=')[1];
             console.log(id);
             userService.updateUser(id, user, renderUser);
+            $('.alert').css('display','block');
         }
     }
 
@@ -61,6 +63,7 @@
             var date = new Date(user.dateOfBirth);
             $dob.val(formatDate(date));
         }
+
     }
 
     function formatDate(date) {
@@ -85,6 +88,10 @@
         }
 
         return true;
+    }
+
+    function hidemessage(event) {
+        $('.alert').css('display','none');
     }
 
 })();

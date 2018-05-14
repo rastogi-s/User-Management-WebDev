@@ -36,7 +36,7 @@
         }
         else{
             $('.form-control').val('');
-            $('.message').text("User Registered Successfully");
+            $('.alert').css('display','block');
             var form = document.getElementsByClassName('needs-validation')[0];
             form.classList.remove('was-validated');
         }
@@ -77,5 +77,6 @@ function validatePassword(input) {
 function initialize(input){
    input.classList.remove('is-invalid');
    $('.message').text("");
+   $('.alert').css('display','none');
 
 }

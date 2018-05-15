@@ -4,14 +4,16 @@
 
 ### Technologies Used :
  1. **Client Side:**  
-        a. jQuery
-        b. JavaScript
-        c. HTML
-        d. CSS
+        1.1 jQuery
+        1.2 JavaScript
+        1.3 HTML
+        1.4 CSS
  2. **Server Side:**
-        a. Spring Boot.
-        b. JPA
- 3. ** Database:**
-        a. MySql
+        1.1 Spring Boot.
+        1.2 JPA
+ 3. **Database:**
+        1.1 MySql
+
+
         
    

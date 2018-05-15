@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="user-admin.style.client.css"/>
 
 </head>
-<body>
+<body >
 <header class="">
     <div class="container">
         <h1>User Admin</h1>
@@ -31,8 +31,12 @@
 </header>
 <section class="content">
     <div class="container">
+        <div class="alert alert-success" role="alert">
+            <!--<strong class="search-user">User with the given username does not exists!!</strong>-->
+            <!--<strong class="create-user">User with the given username already exists!!. Try a new one.</strong>-->
+            <strong >User added successfully!!</strong>
+        </div>
         <table class="table table-hover table-active table-responsive wbdev-table">
-
             <thead>
             <tr class="table-header thead-dark">
                 <th>Username</th>
@@ -42,21 +46,27 @@
                 <th>Role</th>
                 <th>&nbsp;</th>
             </tr>
-            <tr class="wbdev-form">
-                <td><input id="usernameFld" class="form-control"
-                           placeholder="Username"></td>
-                <td><input id="passwordFld" class="form-control"
-                           placeholder="Password"></td>
+            <tr class="wbdev-form" >
+                <td>
+                    <form class="needs-validation" novalidate>
+                    <input id="usernameFld" class="form-control"
+                           placeholder="Username(*)" required onfocus="clearMessage()">
+                        <div class="invalid-feedback invalid-username">Username required!!</div>
+                     </form>
+                </td>
+                <td><input id="passwordFld" type="password" class="form-control"
+                           placeholder="Password" onfocus="clearMessage()"></td>
                 <td><input id="firstNameFld" class="form-control"
-                           placeholder="First Name"></td>
+                           placeholder="First Name" onfocus="clearMessage()"></td>
                 <td><input id="lastNameFld" class="form-control"
-                           placeholder="Last Name"></td>
-                <td><select id="roleFld" class="form-control">
-
+                           placeholder="Last Name" onfocus="clearMessage()"></td>
+                <td><select id="roleFld" class="form-control" onfocus="clearMessage()">
+                    <option value="">Select a role</option>
+                    <option value="ADMIN">Admin</option>
                     <option value="FACULTY">Faculty</option>
                     <option value="STUDENT">Student</option>
                 </select></td>
-                <td><span class="float-right icon-col" >
+                <td><span class="float-right icon-col">
 								<i class="btn fa-2x fa fa-search wbdev-search" data-toggle="tooltip"
                                    data-placement="top" title="Search"> </i> <i
                         class="btn fa-2x fa fa-user-plus wbdev-create" data-toggle="tooltip"
@@ -75,7 +85,7 @@
                 <td class="wbdev-role">r</td>
                 <td class="wbdev-actions"><span class="float-right"> <i
                         id="wbdev-remove" class="btn fa-2x fa fa-trash-alt wbdev-remove"
-                        data-toggle="tooltip" data-placement="bottom" title="Remove" ></i>
+                        data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
 								<i id="wbdev-edit" class="btn fa-2x fa fa-user-edit wbdev-edit"
                                    data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
 						</span></td>

@@ -85,7 +85,7 @@
     function emailsuccess() {
         console.log('email-sent');
         $('.alert').css('display', 'block');
-        $('.alert').text('Email to reset successfully sent!! Check your inbox.')
+        $('.alert').text('Email to reset password sent successfully!!. Wait a few minutes the email will be right in your inbox!!');
         $('.modal').modal('hide');
 
     }

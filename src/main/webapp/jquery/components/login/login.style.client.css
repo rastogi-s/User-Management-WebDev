@@ -1,3 +1,11 @@
 .alert{
     display: none;
 }
+
+.mandatory{
+    color:red;
+}
+
+body{
+    background:rgba(225,225,225,0.3);
+}

@@ -3,7 +3,8 @@
     var $logoutBtn, $updateBtn;
     var userService;
     $(main);
-    $('.form-control').focus(hidemessage);
+
+
 
     function main() {
         $usernameFld = $('#username');
@@ -18,6 +19,8 @@
         userService = new UserServiceClient();
         $logoutBtn.click(logout);
         $updateBtn.click(updateProfile);
+        $('.form-control').focus(hidemessage);
+        $phoneFld.keypress(phoneEdit);
         fetchUserProfile();
 
     }
@@ -88,6 +91,29 @@
         }
 
         return true;
+    }
+
+    function phoneEdit(){
+        console.log($phoneFld.val());
+
+        var text=$phoneFld.val().toString();
+        var newPhone=text;
+        if(text.length>2 && text.length<6 ){
+            if(!(text.indexOf('-')>=0)) {
+                newPhone = text.substring(0, 3) + '-' + text.substring(3, text.length+1);
+            }
+        }
+        else if(text.length>7 && text.length<9   ){
+            if(text.lastIndexOf('-')==3 ) {
+                newPhone = text.substring(0, 7) + '-' + text.substring(7, text.length+1);
+            }
+        }
+        else{
+            newPhone=text;
+        }
+
+        $phoneFld.val(newPhone);
+
     }
 
     function hidemessage(event) {

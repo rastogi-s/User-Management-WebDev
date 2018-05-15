@@ -27,7 +27,6 @@
         userService = new UserServiceClient();
         findAllUsers();
 
-
     }
 
     function clearFields(){
@@ -36,6 +35,7 @@
     }
 
     function editUser(event) {
+        clearMessage();
         console.log('edit User');
         $removeBtn = $(event.currentTarget);
         var id = $removeBtn.parent().parent().parent().attr('id');
@@ -52,22 +52,43 @@
         $roleFld.val(userObj.getRole());
         $('.wbdev-form').attr('id',user.id);
     }
-    function createUser() {
+    function createUser(event) {
+        clearMessage();
         console.log('create user');
-        var user = new User($usernameFld.val(), $passwordFld.val(),
-            $firstNameFld.val(), $lastNameFld.val(), null, null,
-            $roleFld.val(), null);
-        console.log(JSON.stringify(user));
-        userService.createUser(user, renderUser);
+        var validation=disableBrowserValidations(event);
+        if(validation==true) {
+            userService.verifyUser($usernameFld.val(), successVerification);
+        }
+
+    }
+
+    function successVerification(users){
+
+        if(users!=null && users[0]!=null){
+            console.log('User exists');
+            var $validDiv = $('.invalid-username');
+            $validDiv.text("Username already exists!! Try another");
+            var pass = document.getElementById('usernameFld');
+            pass.classList.add('is-invalid');
+        }
+        else{
+            var user = new User($usernameFld.val(), $passwordFld.val(),
+                $firstNameFld.val(), $lastNameFld.val(), null, null,
+                $roleFld.val(), null);
+            console.log(JSON.stringify(user));
+            userService.createUser(user, renderUser);
+        }
+
     }
 
     function findAllUsers() {
+        clearMessage();
         console.log('find all users');
         userService.findAllUsers(renderUsers);
     }
 
     function deleteUser(event) {
-
+        clearMessage();
         console.log('remove user');
         $removeBtn = $(event.currentTarget);
         var id = $removeBtn.parent().parent().parent().attr('id');
@@ -76,10 +97,31 @@
     }
 
     function selectUser() {
+        clearMessage();
         console.log('select user');
+        if($usernameFld.val()!=null && $usernameFld.val()!=""){
+            userService.verifyUser($usernameFld.val(),success);
+
+        }
     }
 
+    function success(users){
+        if(users!=null && users[0]!=null){
+            populateValues(users[0]);
+        }
+        else{
+
+            var $validDiv = $('.invalid-username');
+            $validDiv.text("No user with this username exists!!");
+            var pass = document.getElementById('usernameFld');
+            pass.classList.add('is-invalid');
+
+        }
+    }
+
+
     function updateUser(event) {
+        clearMessage();
         console.log('update user');
         $updateBtn = $(event.currentTarget);
         var id = $('.wbdev-form').attr('id');
@@ -92,6 +134,18 @@
             userService.updateUser(id,user,findAllUsers)
         }
 
+    }
+
+    function disableBrowserValidations(event) {
+        var form = document.getElementsByClassName('needs-validation')[0];
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            return false;
+        }
+
+        return true;
     }
 
     function renderUser(user) {
@@ -107,6 +161,7 @@
         $row.find('#wbdev-edit').click(editUser);
         $row.find('.wbdev-remove').click(deleteUser);
         $tbody.append($row);
+        $('.alert').css('display','block');
         clearFields();
     }
 
@@ -131,6 +186,8 @@
         clearFields();
     }
 
+
+
     function createUserObj(jsonObj){
 
         var userObj = new User(jsonObj.username, jsonObj.password, jsonObj.firstName,
@@ -139,3 +196,12 @@
         return userObj;
     }
 })();
+
+function clearMessage(){
+    $('.alert').css('display','none');
+    var pass = document.getElementById('usernameFld');
+    pass.classList.remove('is-invalid');
+    var form = document.getElementsByClassName('needs-validation')[0];
+    form.classList.remove('was-validated');
+
+}

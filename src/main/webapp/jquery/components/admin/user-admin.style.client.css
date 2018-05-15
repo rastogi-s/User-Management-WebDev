@@ -5,3 +5,11 @@ i:hover {
 .icon-col{
     white-space: nowrap;
 }
+
+.alert{
+    display: none;
+}
+
+body{
+    background:rgba(225,225,225,0.3);
+}

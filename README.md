@@ -1,6 +1,6 @@
 # User Management System
 
-## check out the [Wiki](https://github.com/rastogi-s/User-Management-WebDev/wiki) for details.
+## Check out the [Wiki](https://github.com/rastogi-s/User-Management-WebDev/wiki) for details.
 
 ### Technologies Used :
  1. **Client Side:**  

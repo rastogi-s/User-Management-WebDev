@@ -33,9 +33,16 @@ For detail functionalities and wireframe for the assignment click [here](https:/
 
 ---
 
+
+###Installation Guide:
+
+
+
+---
+
 ### Below are the screenshots of the modules depicting their functionalities.
 
-1. **Admin Module with optionsn to create, update, delete, search a user.**
+1. **Admin Module with options to create, update, delete, search a user.**
 
 
 ![Admin-Page](/screenshots/admin-1.jpg)
@@ -43,7 +50,6 @@ For detail functionalities and wireframe for the assignment click [here](https:/
 
 
 2. **Admin Module with validation against username. Scenario: Username field empty and clicked on create button.** 
-
 
 
 ![Admin-Page](/screenshots/admin-2.jpg)
@@ -116,48 +122,50 @@ For detail functionalities and wireframe for the assignment click [here](https:/
 ![Admin-Page](/screenshots/admin-13.jpg)
 
 
-10. **Registration Module validation against an existing user. Scenario: Input an existing username and click on sign up. **
+10. **Registration Module validation against an existing user. Scenario: Input an existing username and click on sign up.**
 
 
-![Admin-Page](/screenshots/admin-14.jpg)c
-11. **Registration Module validation against password mismatch .Scenario: Input a password and enter a different password in verify password field and click on SignUp. **
+![Admin-Page](/screenshots/admin-14.jpg)
+
+
+11. **Registration Module validation against password mismatch .Scenario: Input a password and enter a different password in verify password field and click on SignUp.**
 
 
 ![Admin-Page](/screenshots/admin-15.jpg)
 
 
 
-12. **Registration Module validation against mandatory validation .Scenario: Do not enter anything in any of the fields and click on SignUp. **
+12. **Registration Module validation against mandatory validation .Scenario: Do not enter anything in any of the fields and click on SignUp.**
 
 
 ![Admin-Page](/screenshots/admin-16.jpg)
 
 
-13. **Registration Module successful registration .Scenario: Enter correct details i.e. a new username and input password and verify password fields and click on SignUp. **
+13. **Registration Module successful registration .Scenario: Enter correct details i.e. a new username and input password and verify password fields and click on SignUp.**
 
 
 ![Admin-Page](/screenshots/admin-17.jpg)
 
 
-14. **Login Module validation against wrong username or password .Scenario: Enter incorrect details i.e. username or password and click on Sign In. **
+14. **Login Module validation against wrong username or password .Scenario: Enter incorrect details i.e. username or password and click on Sign In.**
 
 
 ![Admin-Page](/screenshots/admin-18.jpg)
 
 
-15. **Login Module forgot password screen .Scenario: Click on forgot password link. **
+15. **Login Module forgot password screen .Scenario: Click on forgot password link.**
 
 
 ![Admin-Page](/screenshots/admin-19.jpg)
 
 
-16. **Login Module validation against wrong username .Scenario: Enter a non existing username and  click on send email button. **
+16. **Login Module validation against wrong username .Scenario: Enter a non existing username and  click on send email button.**
 
 
 ![Admin-Page](/screenshots/admin-20.jpg)
 
 
-17. **Login Module email notification successfully sent .Scenario: Enter a correct username and  click on send email button. **
+17. **Login Module email notification successfully sent .Scenario: Enter a correct username and  click on send email button.**
 
 
 ![Admin-Page](/screenshots/admin-21.jpg)
@@ -169,40 +177,36 @@ For detail functionalities and wireframe for the assignment click [here](https:/
 ![Admin-Page](/screenshots/admin-23.jpg) 
 
 
-18. ** Reset Password Screen Scenario: click on the link sent via email to reset password**
+18. **Reset Password Screen Scenario: click on the link sent via email to reset password**
 
 
 ![Admin-Page](/screenshots/admin-24.jpg)
 
 
-19. ** Reset Password successfully reset password. Scenario: enter password for both password and verify password field and click on reset password.**
+19. **Reset Password successfully reset password. Scenario: enter password for both password and verify password field and click on reset password.**
 
 
 ![Admin-Page](/screenshots/admin-25.jpg)
 
 
-20. ** Profile Module load user details on successful verification and navigation from login page **
+20. **Profile Module load user details on successful verification and navigation from login page.**
 
 
 ![Admin-Page](/screenshots/admin-26.jpg)
 
 
-21. ** Profile Module validation against invalid phone and email id **
+21. **Profile Module validation against invalid phone and email id.**
 
  
 ![Admin-Page](/screenshots/admin-27.jpg)
 
 
-22. ** Profile Module successful updation of profile. **
+22. **Profile Module successful updation of profile.**
 
  
 ![Admin-Page](/screenshots/admin-28.jpg)
 
 
 
- 
-
-
- 
 
 © 2018 Shubham Rastogi, Northeastern University.

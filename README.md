@@ -34,11 +34,6 @@ For detail functionalities and wireframe for the assignment click [here](https:/
 ---
 
 
-###Installation Guide:
-
-
-
----
 
 ### Below are the screenshots of the modules depicting their functionalities.
 

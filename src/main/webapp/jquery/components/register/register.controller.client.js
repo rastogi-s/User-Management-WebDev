@@ -39,6 +39,9 @@
             $('.alert').css('display','block');
             var form = document.getElementsByClassName('needs-validation')[0];
             form.classList.remove('was-validated');
+            var action = "../profile/profile.template.client.html";
+            $('.needs-validation').attr('action', action);
+            $('.needs-validation').submit();
         }
 
     }

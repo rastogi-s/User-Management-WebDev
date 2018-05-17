@@ -8,15 +8,17 @@ function UserServiceClient() {
     this.login=login;
     this.sendPasswordResetEmail=sendPasswordResetEmail;
     this.verifyUser=verifyUser;
-    //this.logout=logout;
-    //this.findLoggedUser=findLoggedUser;
+    this.logout=logout;
+    this.findLoggedUser=findLoggedUser;
+    this.updateUserProfile=updateUserProfile;
     this.url = '/api/user';
     this.urlRegister='/api/register';
-    //this.urlLoggedUser='http://localhost:8080/api/logged';
+    this.urlLoggedUser='/api/logged';
+    this.urlUpdateProfile='/api/update';
     this.urlLogin='/api/login';
     this.urlPassReset="/api/reset";
     this.urlVerifyUsername="/api/verify";
-    //this.urlLogout='http://localhost:8080/api/logout'
+    this.urlLogout='/api/logout'
     var self = this;
 
     function createUser(user, callback) {
@@ -69,6 +71,7 @@ function UserServiceClient() {
         return fetch(self.urlRegister , {
             method: 'POST',
             body: JSON.stringify(user),
+            credentials:'same-origin',
             headers: {
                 'content-type': 'application/json'
             }
@@ -82,6 +85,7 @@ function UserServiceClient() {
         return fetch(self.urlLogin,{
             method:'POST',
             body:JSON.stringify({username:username,password:password}),
+            credentials:'same-origin',
             headers:{
                 'content-type':'application/json'
             }
@@ -112,15 +116,33 @@ function UserServiceClient() {
 
     }
 
-    // function logout(callback) {
-    //     return fetch(self.urlLogout, {
-    //         method:'POST'
-    //     });
-    // }
-    //
-    // function findLoggedUser(callback){
-    //     return fetch(self.urlLoggedUser).then(function (response) {
-    //         return response.json();
-    //     }).then(callback);
-    // }
+     function logout(callback) {
+         return fetch(self.urlLogout, {
+             method:'POST',
+             credentials:'same-origin'
+         }).then(callback);
+     }
+    
+     function findLoggedUser(callback){
+         return fetch(self.urlLoggedUser,{
+        	 credentials:'same-origin'
+         }).then(function (response) {
+        	 if(response.headers.get("content-type")!=null)
+                 return response.json();
+             else return null;
+         }).then(callback);
+     }
+     
+     function updateUserProfile(user, callback) {
+         return fetch(self.urlUpdateProfile, {
+             method: 'PUT',
+             body: JSON.stringify(user),
+             credentials:'same-origin',
+             headers: {
+                 'content-type': 'application/json'
+             }
+         }).then(function (response) {
+             return response.json();
+         }).then(callback);
+     }
 }

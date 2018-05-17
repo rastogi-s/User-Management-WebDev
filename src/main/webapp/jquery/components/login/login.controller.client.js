@@ -4,7 +4,7 @@
     var userService;
     var resetUrl='/jquery/components/passwordreset/reset-password.template.client.html';
     $(main);
-    $('.form-control').focus(validate)
+    $('.form-control').change(validate)
 
     function main() {
         $usernameFld = $('#username');
@@ -41,7 +41,7 @@
         else {
             var action = "../profile/profile.template.client.html";
             $('.needs-validation').attr('action', action);
-            localStorage["id"] = userObj.id;
+            //localStorage["id"] = userObj.id;
             $('.needs-validation').submit();
 
         }

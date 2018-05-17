@@ -1,7 +1,11 @@
 package com.example.myapp.services;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.myapp.model.User;
 import com.example.myapp.repositories.UserRepository;
 
@@ -62,32 +67,22 @@ public class UserService {
 	}
 
 	@PostMapping("/api/register")
-	public String registerUser(@RequestBody User user) {
+	public String registerUser(@RequestBody User user, HttpSession session) {
 		Iterable<User> users = findAllUsers(user.getUsername(), null);
 		if (!users.iterator().hasNext()) {
 			repository.save(user);
+			session.setAttribute("loggedUser", user);
 			return "SUCCESS";
 		}
 		return "FAIL";
 	}
 
-	@PostMapping("/api/login")
-	public User login(@RequestBody User user) {
-		Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
-		Iterator<User> it = users.iterator();
-		if (it.hasNext()) {
-			User u = it.next();
-			return u;
-		}
-		return null;
-	}
-	
 	@PostMapping("/api/reset")
 	public void sendEmail(@RequestBody String data) {
-		String arr[]=data.split(" ");
+		String arr[] = data.split(" ");
 		System.out.println(data);
 		PasswordResetEmailService pass = new PasswordResetEmailService();
-		System.out.println("email id"+arr[0]+" ,"+"page :"+arr[1]);
+		System.out.println("email id" + arr[0] + " ," + "page :" + arr[1]);
 		try {
 			pass.sendPasswordResetEmail(arr[0], arr[1]);
 
@@ -97,57 +92,62 @@ public class UserService {
 		}
 
 	}
-	
-//	@PostMapping("/api/reset/{emailId}/link/{page}")
-//	public void sendEmail(@PathVariable("emailId") String emailID, @PathVariable("page") String page) {
-//
-//		PasswordResetEmailService pass = new PasswordResetEmailService();
-//		System.out.println("email id"+emailID+" ,"+"page :"+page);
-//		try {
-//			pass.sendPasswordResetEmail(emailID, page);
-//
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//		}
-//
-//	}
 
 	@GetMapping("/api/verify/{username}")
-	public Iterable<User> verifyUser(@PathVariable("username") String  username) {
+	public Iterable<User> verifyUser(@PathVariable("username") String username) {
 		return repository.findUserByUsername(username);
 	}
 
-	// session management functions commented out....
+	@PostMapping("/api/logout")
+	public void logout(HttpSession session) {
+		session.invalidate();
 
-	// @PostMapping("/api/logout")
-	// public void logout(HttpSession session) {
-	// session.invalidate();
-	//
-	// }
-	//
+	}
+
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user, HttpSession session) {
+		Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
+		Iterator<User> it = users.iterator();
+		if (it.hasNext()) {
+			User u = it.next();
+			session.setAttribute("loggedUser", u);
+			return u;
+		}
+		return null;
+	}
+
+	@GetMapping("/api/logged")
+	public User findLoggedUser(HttpSession session) {
+		User user = null;
+		if (session.getAttribute("loggedUser") != null) {
+
+			user = (User) session.getAttribute("loggedUser");
+		}
+
+		System.out.println(user);
+		return user;
+	}
+	
+	@PutMapping("/api/update")
+	public User updateUserProfile(@RequestBody User user,HttpSession session) {
+		User temp=null;
+		if (session.getAttribute("loggedUser") != null) {
+
+			temp = (User) session.getAttribute("loggedUser");
+			temp.set(user);
+		}
+		System.out.println(user.getPhone());
+		return repository.save(temp);
+	}
+
 	// @PostMapping("/api/login")
-	// public User login(@RequestBody User user, HttpSession session) {
+	// public User login(@RequestBody User user) {
 	// Iterable<User> users = findAllUsers(user.getUsername(), user.getPassword());
 	// Iterator<User> it = users.iterator();
 	// if (it.hasNext()) {
 	// User u = it.next();
-	// session.setAttribute("loggedUser", u);
 	// return u;
 	// }
 	// return null;
 	// }
-	//
-	// @GetMapping("/api/logged")
-	// public User findLoggedUser(HttpSession session) {
-	// User user = null;
-	// if (session.getAttribute("loggedUser")!=null) {
-	//
-	// user=(User) session.getAttribute("loggedUser");
-	// }
-	//
-	// System.out.println(user);
-	// return user;
-	// }
-
 }

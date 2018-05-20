@@ -15,14 +15,14 @@ import com.example.myapp.model.Course;
 import com.example.myapp.repositories.CourseRepository;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseService {
 
 	@Autowired
 	CourseRepository courseRepository;
 
 	@PostMapping("/api/course")
-	public Course createUser(@RequestBody Course course) {
+	public Course createCourse(@RequestBody Course course) {
 
 		return courseRepository.save(course);
 
@@ -33,8 +33,8 @@ public class CourseService {
 		return courseRepository.findAll();
 	}
 
-	@DeleteMapping("/api/course/{cousrseId}")
-	public void deleteCourse(@PathVariable("cousrseId") int id) {
+	@DeleteMapping("/api/course/{courseId}")
+	public void deleteCourse(@PathVariable("courseId") int id) {
 		courseRepository.deleteById(id);
 	}
 
@@ -48,7 +48,7 @@ public class CourseService {
 	}
 	
 	@PutMapping("/api/course/{courseId}")
-	public Course updateUser(@PathVariable("courseId") int id, @RequestBody Course course) {
+	public Course updateCourse(@PathVariable("courseId") int id, @RequestBody Course course) {
 		Course temp = findCourseById(id);
 		temp.set(course);
 		return courseRepository.save(temp);

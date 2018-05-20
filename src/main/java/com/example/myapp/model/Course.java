@@ -1,7 +1,15 @@
 package com.example.myapp.model;
 
 import java.util.Date;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Course {
@@ -17,6 +25,9 @@ public class Course {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modified;
 
+	@OneToMany(mappedBy="course")
+	private List<Module> modules;
+	
 	public int getId() {
 		return id;
 	}
@@ -41,6 +52,14 @@ public class Course {
 		this.created = created;
 	}
 
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+
 	public Date getModified() {
 		return modified;
 	}
@@ -53,6 +72,7 @@ public class Course {
 		this.title = newCourse.title != null ? newCourse.title : this.title;
 		this.created = newCourse.created != null ? newCourse.created : this.created;
 		this.modified = newCourse.modified != null ? newCourse.modified : this.modified;
+		this.modules = newCourse.modules != null ? newCourse.modules : this.modules;
 		
 	}
 

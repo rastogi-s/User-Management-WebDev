@@ -16,3 +16,7 @@
 
         
    
+### Notes:
+This repository also handles api calls from react client application i.e. Course Management System<br>
+Github repository for the Course Management System client application : `https://github.com/rastogi-s/Course-Management-System`.
+

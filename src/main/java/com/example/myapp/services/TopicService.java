@@ -1,5 +1,6 @@
 package com.example.myapp.services;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,9 @@ public class TopicService {
 		Optional<Lesson> data3 = lessonRepository.findById(lessonId);
 
 		if (data1.isPresent() && data2.isPresent() && data3.isPresent()) {
+			Date date=new Date();
 			Course course = data1.get();
+			course.setModified(date);
 			Module module = data2.get();
 			Lesson lesson = data3.get();
 			topic.setLesson(lesson);

@@ -1,5 +1,6 @@
 package com.example.myapp.services;
 
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +38,9 @@ public class LessonService {
 		Optional<Module> data2 = moduleRepository.findById(moduleId);
 		
 		if(data1.isPresent() && data2.isPresent()) {
+			Date date=new Date();
 			Course course = data1.get();
+			course.setModified(date);
 			Module module = data2.get();
 			lesson.setModule(module);
 			module.setCourse(course);

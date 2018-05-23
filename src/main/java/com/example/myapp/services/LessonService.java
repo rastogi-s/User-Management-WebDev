@@ -84,7 +84,7 @@ public class LessonService {
 	}
 	
 	@PutMapping("/api/lesson/{lessonId}")
-	public Lesson updateModule(@PathVariable("lessonId") int id, @RequestBody Lesson lesson) {
+	public Lesson updateLesson(@PathVariable("lessonId") int id, @RequestBody Lesson lesson) {
 		Lesson temp = findLessonById(id);
 		temp.set(lesson);
 		return lessonRepository.save(temp);

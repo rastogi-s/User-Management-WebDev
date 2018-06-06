@@ -1,0 +1,7 @@
+spring.datasource.url=jdbc:mysql://${DBLOCALHOSTNAME}:3306/${DBLOCALSCHEMA}
+spring.datasource.username=${DBLOCALUSERNAME}
+spring.datasource.password=${DBLOCALPASSWORD}
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.ImprovedNamingStrategy
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect

@@ -1,18 +1,25 @@
 package com.example.myapp.model;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class FillInTheBlanksExamQuestion extends BaseExamQuestion {
-	@Column(name = "VARIABLES", nullable = false)
-	private String variables;
+	
+	
+	@OneToMany(mappedBy = "fillInTheBlanksExamQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Variable> variables;
 
-	public String getVariables() {
+	public List<Variable> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(String variables) {
+	public void setVariables(List<Variable> variables) {
 		this.variables = variables;
 	}
+	
+
 }

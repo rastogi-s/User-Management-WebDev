@@ -23,6 +23,7 @@ import com.example.myapp.model.FillInTheBlanksExamQuestion;
 import com.example.myapp.model.MultipleChoiceExamQuestion;
 import com.example.myapp.model.Topic;
 import com.example.myapp.model.TrueOrFalseExamQuestion;
+import com.example.myapp.model.Variable;
 import com.example.myapp.model.Widget;
 import com.example.myapp.repositories.BaseExamQuestionRepository;
 import com.example.myapp.repositories.ChoicesRepository;
@@ -32,6 +33,7 @@ import com.example.myapp.repositories.FillInTheBlanksExamQuestionRepository;
 import com.example.myapp.repositories.MultipleChoiceExamQuestionRepository;
 import com.example.myapp.repositories.TopicRepository;
 import com.example.myapp.repositories.TrueOrFalseExamQuestionRepository;
+import com.example.myapp.repositories.VariableRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -62,6 +64,9 @@ public class ExamService {
 
 	@Autowired
 	ChoicesRepository choicesRepository;
+
+	@Autowired
+	VariableRepository variableRepository;
 
 	@PostMapping("/api/topic/{topicId}/exam")
 	public Exam createExam(@PathVariable("topicId") int topicId, @RequestBody Exam exam) {
@@ -150,26 +155,6 @@ public class ExamService {
 
 	}
 
-	// @PostMapping("/api/exam/{examId}/choice")
-	// public MultipleChoiceExamQuestion
-	// createMultiChoiceExamQuestion(@PathVariable("examId") int examId,
-	// @RequestBody MultipleChoiceExamQuestion multiQuestion) {
-	//
-	// Optional<Exam> data = examRepository.findById(examId);
-	//
-	// if (data.isPresent()) {
-	// Exam exam = data.get();
-	// multiQuestion.setExam(exam);
-	// if (multiQuestion.getType() == null || multiQuestion.getType().equals(""))
-	// multiQuestion.setType("MultipleChoice");
-	//
-	// return multipleChoiceExamQuestionRepository.save(multiQuestion);
-	// }
-	//
-	// return null;
-	//
-	// }
-
 	@PostMapping("/api/exam/{examId}/choice")
 	public MultipleChoiceExamQuestion createMultiChoiceExamQuestion(@PathVariable("examId") int examId,
 			@RequestBody String multi) {
@@ -212,17 +197,39 @@ public class ExamService {
 
 	@PostMapping("/api/exam/{examId}/blanks")
 	public FillInTheBlanksExamQuestion creatFillInTheBlanksExamQuestion(@PathVariable("examId") int examId,
-			@RequestBody FillInTheBlanksExamQuestion fillQuestion) {
+			@RequestBody String fillString) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = null;
+		try {
+			node = mapper.readTree(fillString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FillInTheBlanksExamQuestion fillQuestion = mapper.convertValue(node.get("fill"),
+				FillInTheBlanksExamQuestion.class);
+		Variable vars[] = mapper.convertValue(node.get("vars"), Variable[].class);
 
 		Optional<Exam> data = examRepository.findById(examId);
 
 		if (data.isPresent()) {
 			Exam exam = data.get();
+
 			fillQuestion.setExam(exam);
 			if (fillQuestion.getType() == null || fillQuestion.getType().equals(""))
 				fillQuestion.setType("FillInTheBlanks");
 
-			return fillInTheBlanksExamRepository.save(fillQuestion);
+			FillInTheBlanksExamQuestion savedFillQuestion = fillInTheBlanksExamRepository.save(fillQuestion);
+			int id = savedFillQuestion.getId();
+			List<Variable> l = new ArrayList<Variable>();
+			for (Variable v : vars) {
+				v.setFillInTheBlanksExamQuestion(savedFillQuestion);
+				l.add(v);
+			}
+			variableRepository.saveAll(l);
+			return fillInTheBlanksExamRepository.findById(id).get();
+
 		}
 
 		return null;
@@ -264,10 +271,14 @@ public class ExamService {
 	public EssayExamQuestion updateEssayExamQuestion(@PathVariable("questionId") int questionId,
 			@RequestBody EssayExamQuestion essayQuestion) {
 
-		// EssayExamQuestion
-		// essayQuestion=essayExamQuestionRepository.findById(questionId);
-		// essayExamQuestionRepository.deleteById(questionId);
-		return essayExamQuestionRepository.save(essayQuestion);
+		Optional<EssayExamQuestion> temp = essayExamQuestionRepository.findById(questionId);
+		if (temp.isPresent()) {
+			int examId = temp.get().getExam().getId();
+			essayExamQuestionRepository.deleteById(questionId);
+
+			return createEssayExamQuestion(examId, essayQuestion);
+		}
+		return null;
 
 	}
 
@@ -288,10 +299,17 @@ public class ExamService {
 
 	@PutMapping("/api/question/{questionId}/blanks")
 	public FillInTheBlanksExamQuestion updateFillInTheBlanksExamQuestion(@PathVariable("questionId") int questionId,
-			@RequestBody FillInTheBlanksExamQuestion blanksQuestion) {
+			@RequestBody String blanksQuestion) {
 
-		// fillInTheBlanksExamRepository.deleteById(questionId);
-		return fillInTheBlanksExamRepository.save(blanksQuestion);
+		Optional<FillInTheBlanksExamQuestion> temp = fillInTheBlanksExamRepository.findById(questionId);
+		if (temp.isPresent()) {
+			int examId = temp.get().getExam().getId();
+
+			fillInTheBlanksExamRepository.deleteById(questionId);
+
+			return creatFillInTheBlanksExamQuestion(examId, blanksQuestion);
+		}
+		return null;
 
 	}
 
@@ -299,8 +317,42 @@ public class ExamService {
 	public TrueOrFalseExamQuestion updateFillInTheBlanksExamQuestion(@PathVariable("questionId") int questionId,
 			@RequestBody TrueOrFalseExamQuestion truefalseQuestion) {
 
-		// trueOrFalseExamQuestionRepository.deleteById(questionId);
-		return trueOrFalseExamQuestionRepository.save(truefalseQuestion);
+		Optional<TrueOrFalseExamQuestion> temp = trueOrFalseExamQuestionRepository.findById(questionId);
+		if (temp.isPresent()) {
+			int examId = temp.get().getExam().getId();
+			trueOrFalseExamQuestionRepository.deleteById(questionId);
+
+			return createTrueFalseExamQuestion(examId, truefalseQuestion);
+		}
+		return null;
+
+	}
+
+	@DeleteMapping("/api/question/{questionId}/essay")
+	public void deleteEssay(@PathVariable("questionId") int id) {
+
+		essayExamQuestionRepository.deleteById(id);
+
+	}
+
+	@DeleteMapping("/api/question/{questionId}/blanks")
+	public void deleteFillInTheBlanks(@PathVariable("questionId") int id) {
+
+		fillInTheBlanksExamRepository.deleteById(id);
+
+	}
+
+	@DeleteMapping("/api/question/{questionId}/multi")
+	public void deleteMultipleChoice(@PathVariable("questionId") int id) {
+
+		multipleChoiceExamQuestionRepository.deleteById(id);
+
+	}
+
+	@DeleteMapping("/api/question/{questionId}/truefalse")
+	public void deleteTrueFalse(@PathVariable("questionId") int id) {
+
+		trueOrFalseExamQuestionRepository.deleteById(id);
 
 	}
 }
